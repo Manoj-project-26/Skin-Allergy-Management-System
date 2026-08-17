@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>User Registration - Skin Allergy Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <h1>Create Your Account</h1>
+
+        <p>Please enter your details to register.</p>
+
+        <form method="POST" action="/register">
+
+            <p>
+                <label>Full Name</label><br>
+                <input type="text" name="name" placeholder="Enter your full name">
+            </p>
+
+            <p>
+                <label>Email</label><br>
+                <input type="email" name="email" placeholder="Enter your email">
+            </p>
+
+            <p>
+                <label>Phone Number</label><br>
+                <input type="text" name="phone" placeholder="Enter your phone number">
+            </p>
+
+            <p>
+                <label>Password</label><br>
+                <input type="password" name="password" placeholder="Enter your password">
+            </p>
+
+            <p>
+                <label>Confirm Password</label><br>
+                <input type="password" name="confirm_password" placeholder="Confirm your password">
+            </p>
+
+            <button type="submit" class="btn">Register</button>
+
+        </form>
+
+        <p>
+            Already have an account?
+            <a href="#">Login</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

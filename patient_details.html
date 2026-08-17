@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Patient Details - Skin Allergy Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <h1>Patient Details</h1>
+
+        <p>Please enter your basic health information.</p>
+
+        <form method="POST" action="/patient-details">
+
+            <p>
+                <label>Patient Name</label><br>
+                <input type="text" name="patient_name"
+                       placeholder="Enter patient name" required>
+            </p>
+
+            <p>
+                <label>Age</label><br>
+                <input type="number" name="age"
+                       placeholder="Enter age" required>
+            </p>
+
+            <p>
+                <label>Gender</label><br>
+
+                <select name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </p>
+
+            <p>
+                <label>Phone Number</label><br>
+                <input type="text" name="phone"
+                       placeholder="Enter phone number" required>
+            </p>
+
+            <p>
+                <label>Address</label><br>
+                <textarea name="address"
+                          placeholder="Enter address"
+                          rows="4" required></textarea>
+            </p>
+
+            <p>
+                <label>Allergy Symptoms</label><br>
+                <textarea name="symptoms"
+                          placeholder="Describe your skin allergy symptoms"
+                          rows="4" required></textarea>
+            </p>
+
+            <p>
+                <label>Previous Allergy History</label><br>
+                <textarea name="allergy_history"
+                          placeholder="Enter previous allergy details, if any"
+                          rows="4"></textarea>
+            </p>
+
+            <button type="submit" class="btn">
+                Save Patient Details
+            </button>
+
+        </form>
+
+        <p>
+            <a href="/dashboard">Back to Dashboard</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

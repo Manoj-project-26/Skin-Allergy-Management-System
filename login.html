@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Login - Skin Allergy Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <h1>Login</h1>
+
+        <p>Login to your account</p>
+
+        <form method="POST" action="/login">
+
+            <p>
+                <label>Email</label><br>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </p>
+
+            <p>
+                <label>Password</label><br>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </p>
+
+            <button type="submit" class="btn">Login</button>
+
+        </form>
+
+        <p>
+            Don't have an account?
+            <a href="/register">Register</a>
+        </p>
+
+    </div>
+
+</body>
+</html>
