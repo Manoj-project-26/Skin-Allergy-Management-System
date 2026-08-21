@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Skin Allergy Report</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <h1>📄 Skin Allergy Report</h1>
+
+        <p>
+            Patient and skin allergy analysis report
+        </p>
+
+        <hr>
+
+        <h2>👤 Patient Details</h2>
+
+        <p><b>Name:</b> {{ patient_name }}</p>
+        <p><b>Age:</b> {{ age }}</p>
+        <p><b>Gender:</b> {{ gender }}</p>
+        <p><b>Phone:</b> {{ phone }}</p>
+        <p><b>Address:</b> {{ address }}</p>
+
+        <hr>
+
+        <h2>🤖 AI Skin Allergy Analysis</h2>
+
+        <p><b>Skin Area:</b> {{ skin_area }}</p>
+        <p><b>Duration:</b> {{ duration }}</p>
+        <p><b>Symptoms:</b> {{ symptoms }}</p>
+        <p><b>Allergy History:</b> {{ allergy_history }}</p>
+
+        <p>
+            <b>Possible Condition:</b>
+            {{ condition }}
+        </p>
+
+        <p>
+            <b>Basic Guidance:</b>
+            {{ guidance }}
+        </p>
+
+        <hr>
+
+        <h2>👨‍⚕️ Doctor Suggestion</h2>
+
+        <p>
+            <b>Suggested Specialist:</b>
+            {{ doctor }}
+        </p>
+
+        <p>
+            <b>Reason:</b>
+            {{ reason }}
+        </p>
+
+        <hr>
+
+        <h2>🏥 Hospital / Skin Care Information</h2>
+
+        <p>
+            <b>Location:</b>
+            {{ location }}
+        </p>
+
+        <ul>
+            {% for hospital in hospitals %}
+                <li>{{ hospital }}</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+
+        <p>
+            ⚠️ This report is generated for academic/project
+            demonstration purposes and is not a medical diagnosis.
+        </p>
+
+        <p>
+            <a href="/dashboard">Back to Dashboard</a>
+        </p>
+
+    </div>
+
+</body>
+</html>
