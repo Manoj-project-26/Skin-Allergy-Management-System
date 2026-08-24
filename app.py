@@ -176,11 +176,11 @@ def ai_allergy():
         else:
             condition = "Unclassified Skin Symptoms"
             guidance = "Please consult a qualified healthcare professional for proper evaluation."
-            session["skin_area"] = skin_area
-            session["duration"] = duration
-            session["condition"] = condition
-            session["guidance"] = guidance
 
+        session["skin_area"] = skin_area
+        session["duration"] = duration
+        session["condition"] = condition
+        session["guidance"] = guidance
         return f"""
         <h1>🤖 AI Skin Allergy Analysis</h1>
 
@@ -340,27 +340,33 @@ def report():
         gender = "-"
         phone = "-"
         address = "-"
-        symptoms = "-"
-        allergy_history = "-"
+        symptoms = "No symptoms recorded"
+        allergy_history = "No allergy history recorded"
 
     return render_template(
         "report.html",
+
         patient_name=patient_name,
         age=age,
         gender=gender,
         phone=phone,
         address=address,
+
         symptoms=symptoms,
         allergy_history=allergy_history,
+
         skin_area=session.get("skin_area", "-"),
         duration=session.get("duration", "-"),
         condition=session.get("condition", "-"),
-        
-        
-        guidance="Please consult a qualified dermatologist.",
+        guidance=session.get(
+            "guidance",
+            "Please consult a qualified dermatologist."
+        ),
+
         doctor="Dermatologist",
         reason="For skin allergy evaluation.",
         location="Madurai",
+
         hospitals=[
             "Government Rajaji Hospital - Dermatology Department",
             "AIIMS Madurai - Department of Dermatology",
