@@ -255,28 +255,29 @@ def hospital_location():
 
     if request.method == "POST":
 
-        location = request.form["location"]
+        location = request.form.get("location", "").strip().lower()
 
-        if location.lower() == "chennai":
+        if location == "chennai":
             hospitals = [
                 "Government General Hospital - Chennai",
                 "Rajiv Gandhi Government General Hospital - Chennai",
                 "Government Stanley Hospital - Chennai"
             ]
 
-        elif location.lower() == "coimbatore":
+        elif location == "coimbatore":
             hospitals = [
                 "Coimbatore Medical College Hospital",
                 "Government Hospital - Coimbatore"
             ]
 
-        elif location.lower() == "madurai":
+        elif location == "madurai":
             hospitals = [
-        "Government Rajaji Hospital, Madurai - Dermatology Department / Contact Dermatitis Clinic",
-        "AIIMS Madurai - Department of Dermatology",
-        "Vadamalayan Hospitals, Madurai - Dermatology / Skin Allergy Care",
-        "Gem Skin, Hair and Laser Centre, Madurai - Skin Care / Dermatology"
-    ]
+                "Government Rajaji Hospital, Madurai - Dermatology Department / Contact Dermatitis Clinic",
+                "AIIMS Madurai - Department of Dermatology",
+                "Vadamalayan Hospitals, Madurai - Dermatology / Skin Allergy Care",
+                "Gem Skin, Hair and Laser Centre, Madurai - Skin Care / Dermatology"
+            ]
+
         else:
             hospitals = [
                 "No hospital information available for this location in the demo."
@@ -290,7 +291,7 @@ def hospital_location():
         return f"""
         <h1>🏥 Hospital Information</h1>
 
-        <h2>Location: {location}</h2>
+        <h2>Location: {location.title()}</h2>
 
         <h3>Available Hospitals</h3>
 
@@ -309,6 +310,7 @@ def hospital_location():
         """
 
     return render_template("hospital_location.html")
+    
 @app.route("/report")
 def report():
 
