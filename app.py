@@ -108,6 +108,10 @@ def login():
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
+@app.route("/clear-session")
+def clear_session():
+    session.clear()
+    return "Session cleared successfully."
 
 
 @app.route("/patient-details", methods=["GET", "POST"])
@@ -142,6 +146,7 @@ def patient_details():
 
         connection.commit()
         connection.close()
+        session["patient_done"] = True
 
         return "Patient Details Saved Successfully!"
 
@@ -181,6 +186,7 @@ def ai_allergy():
         session["duration"] = duration
         session["condition"] = condition
         session["guidance"] = guidance
+        session["ai_done"] = True
         return f"""
         <h1>🤖 AI Skin Allergy Analysis</h1>
 
@@ -227,6 +233,9 @@ def doctor_suggestion():
         else:
             doctor = "Dermatologist"
             reason = "A dermatologist is the appropriate specialist for skin-related concerns."
+            session["doctor_done"] = True
+            session["doctor"] = doctor
+            session["reason"] = reason
 
         return f"""
         <h1>👨‍⚕️ Doctor Suggestion</h1>
@@ -287,6 +296,9 @@ def hospital_location():
 
         for hospital in hospitals:
             hospital_list += f"<li>{hospital}</li>"
+            session["hospital_done"] = True
+            session["hospital_location"] = location.title()
+            session["hospitals"] = hospitals
 
         return f"""
         <h1>🏥 Hospital Information</h1>
@@ -317,14 +329,17 @@ def report():
     connection = sqlite3.connect("database.db")
     cursor = connection.cursor()
 
-    cursor.execute("""
-        SELECT patient_name, age, gender, phone, address, symptoms, allergy_history
-        FROM patients
-        ORDER BY rowid DESC
-        LIMIT 1
-    """)
+    patient = None
 
-    patient = cursor.fetchone()
+    if session.get("patient_done"):
+        cursor.execute("""
+            SELECT patient_name, age, gender, phone, address, symptoms, allergy_history
+            FROM patients
+            ORDER BY rowid DESC
+            LIMIT 1
+        """)
+
+        patient = cursor.fetchone()
 
     connection.close()
 
@@ -337,26 +352,20 @@ def report():
         symptoms = patient[5]
         allergy_history = patient[6]
     else:
-        patient_name = "No patient data"
+        patient_name = "-"
         age = "-"
         gender = "-"
         phone = "-"
         address = "-"
-        symptoms = "No symptoms recorded"
-        allergy_history = "No allergy history recorded"
+        symptoms = "-"
+        allergy_history = "-"
 
     return render_template(
         "report.html",
 
-        patient_name=patient_name,
-        age=age,
-        gender=gender,
-        phone=phone,
-        address=address,
+        patient_done=session.get("patient_done", False),
 
-        symptoms=symptoms,
-        allergy_history=allergy_history,
-
+        ai_done=session.get("ai_done", False),
         skin_area=session.get("skin_area", "-"),
         duration=session.get("duration", "-"),
         condition=session.get("condition", "-"),
@@ -365,16 +374,21 @@ def report():
             "Please consult a qualified dermatologist."
         ),
 
-        doctor="Dermatologist",
-        reason="For skin allergy evaluation.",
-        location="Madurai",
+        doctor_done=session.get("doctor_done", False),
+        doctor=session.get("doctor", "-"),
+        reason=session.get("reason", "-"),
 
-        hospitals=[
-            "Government Rajaji Hospital - Dermatology Department",
-            "AIIMS Madurai - Department of Dermatology",
-            "Vadamalayan Hospitals - Dermatology / Skin Allergy Care",
-            "Gem Skin, Hair and Laser Centre - Skin Care / Dermatology"
-        ]
+        hospital_done=session.get("hospital_done", False),
+        location=session.get("hospital_location", "-"),
+        hospitals=session.get("hospitals", []),
+
+        patient_name=patient_name,
+        age=age,
+        gender=gender,
+        phone=phone,
+        address=address,
+        symptoms=symptoms,
+        allergy_history=allergy_history
     )
 if __name__ == "__main__":
     create_database()
