@@ -20,6 +20,8 @@
 
         <hr>
 
+        {% if patient_done %}
+
         <h2>👤 Patient Details</h2>
 
         <p><b>Name:</b> {{ patient_name }}</p>
@@ -32,23 +34,24 @@
 
         <hr>
 
+        {% endif %}
+
+
+        {% if ai_done %}
+
         <h2>🤖 AI Skin Allergy Analysis</h2>
 
         <p><b>Skin Area:</b> {{ skin_area }}</p>
         <p><b>Duration:</b> {{ duration }}</p>
-        <p><b>Symptoms:</b> {{ symptoms }}</p>
-        <p><b>Allergy History:</b> {{ allergy_history }}</p>
-        <p>
-            <b>Possible Condition:</b>
-            {{ condition }}
-        </p>
-
-        <p>
-            <b>Basic Guidance:</b>
-            {{ guidance }}
-        </p>
+        <p><b>Possible Condition:</b> {{ condition }}</p>
+        <p><b>Basic Guidance:</b> {{ guidance }}</p>
 
         <hr>
+
+        {% endif %}
+
+
+        {% if doctor_done %}
 
         <h2>👨‍⚕️ Doctor Suggestion</h2>
 
@@ -64,6 +67,11 @@
 
         <hr>
 
+        {% endif %}
+
+
+        {% if hospital_done %}
+
         <h2>🏥 Hospital / Skin Care Information</h2>
 
         <p>
@@ -78,6 +86,20 @@
         </ul>
 
         <hr>
+
+        {% endif %}
+
+
+        {% if not patient_done and not ai_done and not doctor_done and not hospital_done %}
+
+        <h2>No Report Data Available</h2>
+
+        <p>
+            Please complete at least one module before viewing the report.
+        </p>
+
+        {% endif %}
+
 
         <p>
             ⚠️ This report is generated for academic/project
