@@ -101,20 +101,31 @@ def login():
         connection.close()
 
         if user:
+
+            # Start completely fresh session for new login
+            session.clear()
+
+            session["user_id"] = user[0]
+
+            # Fresh report status
+            session["patient_done"] = False
+            session["ai_done"] = False
+            session["doctor_done"] = False
+            session["hospital_done"] = False
+
             return render_template("dashboard.html")
 
         return "Invalid Email or Password!"
 
     return render_template("login.html")
 
-
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
-@app.route("/clear-session")
-def clear_session():
+@app.route("/logout")
+def logout():
     session.clear()
-    return "Session cleared successfully."
+    return render_template("login.html")
 
 
 @app.route("/patient-details", methods=["GET", "POST"])
@@ -150,7 +161,11 @@ def patient_details():
 
         connection.commit()
         connection.close()
+        # Start a fresh report for the current patient
         session["patient_done"] = True
+        session["ai_done"] = False
+        session["doctor_done"] = False
+        session["hospital_done"] = False
 
         return "Patient Details Saved Successfully!"
 
@@ -516,9 +531,12 @@ def report():
 
     patient = None
 
+    # Patient details should appear only when completed in current session
     if session.get("patient_done"):
+
         cursor.execute("""
-            SELECT patient_name, age, gender, phone, address, symptoms, allergy_history
+            SELECT patient_name, age, gender, phone, address,
+                   symptoms, allergy_history
             FROM patients
             ORDER BY rowid DESC
             LIMIT 1
@@ -528,7 +546,9 @@ def report():
 
     connection.close()
 
+    # Patient data
     if patient:
+
         patient_name = patient[0]
         age = patient[1]
         gender = patient[2]
@@ -536,7 +556,9 @@ def report():
         address = patient[4]
         symptoms = patient[5]
         allergy_history = patient[6]
+
     else:
+
         patient_name = "-"
         age = "-"
         gender = "-"
@@ -545,40 +567,45 @@ def report():
         symptoms = "-"
         allergy_history = "-"
 
+    # Check which modules are completed
+    patient_done = session.get("patient_done", False)
+    ai_done = session.get("ai_done", False)
+    doctor_done = session.get("doctor_done", False)
+    hospital_done = session.get("hospital_done", False)
+
     return render_template(
         "report.html",
 
-        patient_done=session.get("patient_done", False),
-
-        ai_done=session.get("ai_done", False),
-        skin_area=session.get("skin_area", "-"),
-        duration=session.get("duration", "-"),
-        condition=session.get("condition", "-"),
-        guidance=session.get(
-            "guidance",
-            "Please consult a qualified dermatologist."
-        ),
-
-        doctor_done=session.get("doctor_done", False),
-        doctor=session.get("doctor", "-"),
-        reason=session.get("reason", "-"),
-
-        hospital_done=session.get("hospital_done", False),
-        location=session.get("hospital_location", "-"),
-        hospitals=session.get("hospitals", []),
-
+        # Patient
+        patient_done=patient_done,
         patient_name=patient_name,
         age=age,
         gender=gender,
         phone=phone,
         address=address,
         symptoms=symptoms,
-        allergy_history=allergy_history
+        allergy_history=allergy_history,
+
+        # AI
+        ai_done=ai_done,
+        skin_area=session.get("skin_area", "-"),
+        duration=session.get("duration", "-"),
+        condition=session.get("condition", "-"),
+        guidance=session.get(
+            "guidance",
+            "Please consult a qualified healthcare professional."
+        ),
+
+        # Doctor
+        doctor_done=doctor_done,
+        doctor=session.get("doctor", "-"),
+        reason=session.get("reason", "-"),
+
+        # Hospital
+        hospital_done=hospital_done,
+        location=session.get("hospital_location", "-"),
+        hospitals=session.get("hospitals", [])
     )
-    # Skin Allergy Information Page
-@app.route("/skin-allergy-info")
-def skin_allergy_info():
-    return render_template("skin_allergy_info.html")
 create_database()
 
 if __name__ == "__main__":
