@@ -606,6 +606,9 @@ def report():
         location=session.get("hospital_location", "-"),
         hospitals=session.get("hospitals", [])
     )
+@app.route("/skin-allergy-info")
+def skin_allergy_info():
+    return render_template("skin_allergy_info.html")
 create_database()
 
 if __name__ == "__main__":
