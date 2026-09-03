@@ -577,6 +577,7 @@ def report():
 @app.route("/skin-allergy-info")
 def skin_allergy_info():
     return render_template("skin_allergy_info.html")
+create_database()
+
 if __name__ == "__main__":
-    create_database()
     app.run(debug=True)
