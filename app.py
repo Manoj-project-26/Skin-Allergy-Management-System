@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = "skin_allergy_secret_key"
 
 
@@ -161,65 +161,236 @@ def ai_allergy():
 
         skin_area = request.form["skin_area"]
         duration = request.form["duration"]
-        symptoms = request.form["symptoms"].lower()
-        additional_info = request.form["additional_info"]
 
-        # Simple symptom-based analysis for the academic project
-        if "itching" in symptoms and "redness" in symptoms and "rash" in symptoms:
-            condition = "Allergic Skin Reaction"
-            guidance = "Avoid possible irritants and consult a qualified healthcare professional."
+        # Get all selected symptoms from checkboxes
+        symptoms_list = request.form.getlist("symptoms")
+        symptoms = " ".join(symptoms_list).lower()
 
-        elif "itching" in symptoms and "dry" in symptoms:
-            condition = "Dry or Irritated Skin"
-            guidance = "Avoid harsh products and consider consulting a healthcare professional."
+        additional_info = request.form.get("additional_info", "")
+
+        # Simple rule-based preliminary symptom analysis
+        if ("itching" in symptoms and
+                "redness" in symptoms and
+                "rash" in symptoms):
+            condition = "Possible Allergic Skin Reaction"
+            guidance = (
+                "Avoid possible irritants and consult a qualified "
+                "healthcare professional."
+            )
+
+        elif "itching" in symptoms and "hives" in symptoms:
+            condition = "Possible Hives / Urticaria"
+            guidance = (
+                "Avoid suspected triggers and consult a qualified "
+                "healthcare professional."
+            )
 
         elif "redness" in symptoms and "swelling" in symptoms:
             condition = "Possible Allergic Reaction"
-            guidance = "Seek professional medical evaluation, especially if symptoms are severe."
+            guidance = (
+                "Seek professional medical evaluation, especially "
+                "if symptoms are severe."
+            )
+
+        elif "itching" in symptoms:
+            condition = "Possible Skin Irritation"
+            guidance = (
+                "Avoid possible irritants and consult a qualified "
+                "healthcare professional if symptoms persist."
+            )
+
+        elif "redness" in symptoms:
+            condition = "Possible Skin Irritation"
+            guidance = (
+                "Avoid possible irritants and consult a qualified "
+                "healthcare professional."
+            )
 
         elif "rash" in symptoms:
             condition = "Possible Skin Irritation"
-            guidance = "Avoid suspected irritants and seek professional advice if symptoms continue."
+            guidance = (
+                "Avoid suspected irritants and seek professional "
+                "advice if symptoms continue."
+            )
+
+        elif "dryness" in symptoms:
+            condition = "Possible Dry Skin Irritation"
+            guidance = (
+                "Use gentle skin care and consult a healthcare "
+                "professional if symptoms persist."
+            )
+
+        elif "swelling" in symptoms:
+            condition = "Possible Allergic Reaction"
+            guidance = (
+                "Seek professional medical evaluation, especially "
+                "if swelling is severe or increasing."
+            )
+
+        elif "burning" in symptoms:
+            condition = "Possible Skin Irritation"
+            guidance = (
+                "Avoid products that may irritate the skin and "
+                "consider professional evaluation."
+            )
+
+        elif "irritation" in symptoms:
+            condition = "Possible Skin Irritation"
+            guidance = (
+                "Avoid suspected irritants and consult a healthcare "
+                "professional if symptoms continue."
+            )
+
+        elif "bumps" in symptoms:
+            condition = "Possible Skin Irritation"
+            guidance = (
+                "Avoid suspected irritants and consult a healthcare "
+                "professional if symptoms continue."
+            )
+
+        elif "blisters" in symptoms:
+            condition = "Possible Skin Reaction"
+            guidance = (
+                "Avoid touching or irritating the affected area "
+                "and seek professional medical evaluation."
+            )
+
+        elif "peeling" in symptoms:
+            condition = "Possible Dry or Irritated Skin"
+            guidance = (
+                "Use gentle skin care and consult a healthcare "
+                "professional if symptoms persist."
+            )
+
+        elif "cracked" in symptoms:
+            condition = "Possible Dry Skin Irritation"
+            guidance = (
+                "Keep the skin moisturized and consult a healthcare "
+                "professional if the condition continues."
+            )
+
+        elif "scaling" in symptoms:
+            condition = "Possible Scaling Skin Condition"
+            guidance = (
+                "Avoid harsh skin products and seek professional "
+                "medical advice for proper evaluation."
+            )
+
+        elif "hives" in symptoms:
+            condition = "Possible Hives / Urticaria"
+            guidance = (
+                "Avoid suspected triggers and consult a qualified "
+                "healthcare professional."
+            )
+
+        elif "oozing" in symptoms:
+            condition = "Possible Skin Condition Requiring Evaluation"
+            guidance = (
+                "Oozing or fluid discharge should be evaluated by "
+                "a qualified healthcare professional."
+            )
+
+        elif "flaking" in symptoms:
+            condition = "Possible Dry Skin Irritation"
+            guidance = (
+                "Use gentle skin care and consult a healthcare "
+                "professional if symptoms persist."
+            )
+
+        elif "warmth" in symptoms:
+            condition = "Possible Skin Inflammation"
+            guidance = (
+                "Skin warmth may be associated with inflammation. "
+                "Please consult a healthcare professional."
+            )
+
+        elif "tenderness" in symptoms:
+            condition = "Possible Skin Inflammation"
+            guidance = (
+                "Please consult a qualified healthcare professional "
+                "if tenderness persists or increases."
+            )
+
+        elif "tightness" in symptoms:
+            condition = "Possible Dry or Irritated Skin"
+            guidance = (
+                "Use gentle skin care and consult a healthcare "
+                "professional if symptoms persist."
+            )
+
+        elif "discoloration" in symptoms:
+            condition = "Possible Skin Discoloration"
+            guidance = (
+                "Skin discoloration can have different causes. "
+                "Please consult a qualified healthcare professional."
+            )
+
+        elif "pain" in symptoms:
+            condition = "Possible Skin Inflammation"
+            guidance = (
+                "Please consult a qualified healthcare professional, "
+                "especially if pain increases."
+            )
 
         else:
             condition = "Unclassified Skin Symptoms"
-            guidance = "Please consult a qualified healthcare professional for proper evaluation."
+            guidance = (
+                "Please consult a qualified healthcare professional "
+                "for proper evaluation."
+            )
+
+        # Store analysis result in session
 
         session["skin_area"] = skin_area
         session["duration"] = duration
+        session["symptoms"] = symptoms
+        session["additional_info"] = additional_info
         session["condition"] = condition
         session["guidance"] = guidance
         session["ai_done"] = True
+
         return f"""
         <h1>🤖 AI Skin Allergy Analysis</h1>
 
         <h2>Analysis Result</h2>
 
         <p><b>Skin Area:</b> {skin_area}</p>
+
         <p><b>Duration:</b> {duration}</p>
+
         <p><b>Symptoms:</b> {symptoms}</p>
 
+        <p><b>Additional Information:</b> {additional_info}</p>
+
         <h3>Possible Condition</h3>
+
         <p>{condition}</p>
 
         <h3>Basic Guidance</h3>
+
         <p>{guidance}</p>
 
-        <p>⚠️ This is a project-based preliminary result and
-        not a medical diagnosis.</p>
+        <p>
+            ⚠️ This is a project-based preliminary result and
+            not a medical diagnosis.
+        </p>
 
         <a href="/ai-allergy">Analyze Again</a>
+
         <br>
+
         <a href="/dashboard">Back to Dashboard</a>
         """
 
     return render_template("ai_allergy.html")
 @app.route("/doctor-suggestion", methods=["GET", "POST"])
 def doctor_suggestion():
+
     if request.method == "POST":
 
         symptoms = request.form["symptoms"].lower()
         duration = request.form["duration"]
+        additional_info = request.form.get("additional_info", "")
 
         if "itching" in symptoms and "rash" in symptoms:
             doctor = "Dermatologist"
@@ -229,16 +400,20 @@ def doctor_suggestion():
             doctor = "Dermatologist"
             reason = "A dermatologist can evaluate skin redness and swelling."
 
-        elif "dry" in symptoms:
+        elif "dry" in symptoms or "dryness" in symptoms:
             doctor = "Dermatologist"
             reason = "A dermatologist can evaluate persistent dry or irritated skin."
 
         else:
             doctor = "Dermatologist"
             reason = "A dermatologist is the appropriate specialist for skin-related concerns."
-            session["doctor_done"] = True
-            session["doctor"] = doctor
-            session["reason"] = reason
+
+        session["doctor_done"] = True
+        session["doctor"] = doctor
+        session["reason"] = reason
+        session["doctor_duration"] = duration
+        session["doctor_symptoms"] = symptoms
+        session["doctor_additional_info"] = additional_info
 
         return f"""
         <h1>👨‍⚕️ Doctor Suggestion</h1>
@@ -250,6 +425,10 @@ def doctor_suggestion():
         <p><b>Reason:</b> {reason}</p>
 
         <p><b>Duration:</b> {duration}</p>
+
+        <p><b>Symptoms:</b> {symptoms}</p>
+
+        <p><b>Additional Information:</b> {additional_info}</p>
 
         <p>
         ⚠️ This is a project-based suggestion and not a medical diagnosis.
@@ -295,13 +474,15 @@ def hospital_location():
                 "No hospital information available for this location in the demo."
             ]
 
+        # Save hospital information in session
+        session["hospital_done"] = True
+        session["hospital_location"] = location.title()
+        session["hospitals"] = hospitals
+
         hospital_list = ""
 
         for hospital in hospitals:
             hospital_list += f"<li>{hospital}</li>"
-            session["hospital_done"] = True
-            session["hospital_location"] = location.title()
-            session["hospitals"] = hospitals
 
         return f"""
         <h1>🏥 Hospital Information</h1>
@@ -324,8 +505,7 @@ def hospital_location():
         <a href="/dashboard">Back to Dashboard</a>
         """
 
-    return render_template("hospital_location.html")
-    
+    return render_template("hospital_location.html")    
 @app.route("/report")
 def report():
 
@@ -393,6 +573,10 @@ def report():
         symptoms=symptoms,
         allergy_history=allergy_history
     )
+    # Skin Allergy Information Page
+@app.route("/skin-allergy-info")
+def skin_allergy_info():
+    return render_template("skin_allergy_info.html")
 if __name__ == "__main__":
     create_database()
     app.run(debug=True)

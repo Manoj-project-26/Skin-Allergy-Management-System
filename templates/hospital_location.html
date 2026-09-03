@@ -2,49 +2,80 @@
 <html>
 <head>
 
-    <title>Hospital Location</title>
+    <title>Hospital Location - Skin Allergy Management System</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>      
 
 </head>
 
 <body>
 
-    <div class="hero">
+    <div class="patient-page">
 
-        <h1>🏥 Hospital Location</h1>
+        <div class="patient-card">
 
-        <p>
-            Find hospital information based on your location.
-        </p>
+            <div class="patient-icon">🏥</div>
 
-        <form method="POST" action="/hospital-location">
+            <h1>Hospital Location</h1>
 
-            <p>
-                <label>Enter Your Location</label><br>
-
-                <input type="text"
-                       name="location"
-                       placeholder="Example: Chennai"
-                       required>
+            <p class="patient-subtitle">
+                Find nearby hospital information based on your location.
             </p>
 
-            <button type="submit" class="btn">
-                🔍 Find Hospitals
-            </button>
 
-        </form>
+            <form method="POST" action="/hospital-location">
 
-        <p>
-            <a href="/dashboard">Back to Dashboard</a>
-        </p>
+                <!-- Location -->
 
-        <p>
-            <small>
-                ⚠️ Hospital information shown in this project is for
-                demonstration purposes.
-            </small>
-        </p>
+                <div class="patient-group">
+
+                    <label>Enter Your Location</label>
+
+                    <input type="text"
+                           name="location"
+                           placeholder="Example: Madurai"
+                           required>
+
+                </div>
+
+
+                <!-- Find Button -->
+
+                <button type="submit" class="patient-btn">
+                    🔍 Find Hospitals
+                </button>
+
+            </form>
+
+
+            <!-- Important Note -->
+
+            <div class="ai-note">
+
+                <strong>Important:</strong>
+
+                <p>
+                    Hospital information shown in this project is
+                    for demonstration purposes. Please verify the
+                    hospital details before visiting.
+                </p>
+
+            </div>
+
+
+            <!-- Back -->
+
+            <p class="dashboard-back">
+
+                <a href="/dashboard">
+                    ← Back to Dashboard
+                </a>
+
+            </p>
+
+        </div>
 
     </div>
 

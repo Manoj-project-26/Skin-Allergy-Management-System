@@ -4,113 +4,186 @@
 
     <title>Skin Allergy Report</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>      
 
 </head>
 
 <body>
 
-    <div class="hero">
+<div class="report-page">
 
-        <h1>📄 Skin Allergy Report</h1>
+    <div class="report-card">
 
-        <p>
+        <div class="report-icon">📄</div>
+
+        <h1>Skin Allergy Report</h1>
+
+        <p class="report-subtitle">
             Patient and skin allergy analysis report
         </p>
 
-        <hr>
 
         {% if patient_done %}
 
-        <h2>👤 Patient Details</h2>
+        <div class="report-section">
 
-        <p><b>Name:</b> {{ patient_name }}</p>
-        <p><b>Age:</b> {{ age }}</p>
-        <p><b>Gender:</b> {{ gender }}</p>
-        <p><b>Phone:</b> {{ phone }}</p>
-        <p><b>Address:</b> {{ address }}</p>
-        <p><b>Symptoms:</b> {{ symptoms }}</p>
-        <p><b>Previous Allergy History:</b> {{ allergy_history }}</p>
+            <h2>👤 Patient Details</h2>
 
-        <hr>
+            <div class="report-details">
+
+                <p><b>Name:</b> {{ patient_name }}</p>
+
+                <p><b>Age:</b> {{ age }}</p>
+
+                <p><b>Gender:</b> {{ gender }}</p>
+
+                <p><b>Phone:</b> {{ phone }}</p>
+
+                <p><b>Address:</b> {{ address }}</p>
+
+                <p><b>Symptoms:</b> {{ symptoms }}</p>
+
+                <p>
+                    <b>Previous Allergy History:</b>
+                    {{ allergy_history }}
+                </p>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
 
         {% if ai_done %}
 
-        <h2>🤖 AI Skin Allergy Analysis</h2>
+        <div class="report-section">
 
-        <p><b>Skin Area:</b> {{ skin_area }}</p>
-        <p><b>Duration:</b> {{ duration }}</p>
-        <p><b>Possible Condition:</b> {{ condition }}</p>
-        <p><b>Basic Guidance:</b> {{ guidance }}</p>
+            <h2>🤖 AI Skin Allergy Analysis</h2>
 
-        <hr>
+            <div class="report-details">
+
+                <p>
+                    <b>Skin Area:</b>
+                    {{ skin_area }}
+                </p>
+
+                <p>
+                    <b>Duration:</b>
+                    {{ duration }}
+                </p>
+
+                <p>
+                    <b>Possible Condition:</b>
+                    {{ condition }}
+                </p>
+
+                <p>
+                    <b>Basic Guidance:</b>
+                    {{ guidance }}
+                </p>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
 
         {% if doctor_done %}
 
-        <h2>👨‍⚕️ Doctor Suggestion</h2>
+        <div class="report-section">
 
-        <p>
-            <b>Suggested Specialist:</b>
-            {{ doctor }}
-        </p>
+            <h2>👨‍⚕️ Doctor Suggestion</h2>
 
-        <p>
-            <b>Reason:</b>
-            {{ reason }}
-        </p>
+            <div class="report-details">
 
-        <hr>
+                <p>
+                    <b>Suggested Specialist:</b>
+                    {{ doctor }}
+                </p>
+
+                <p>
+                    <b>Reason:</b>
+                    {{ reason }}
+                </p>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
 
         {% if hospital_done %}
 
-        <h2>🏥 Hospital / Skin Care Information</h2>
+        <div class="report-section">
 
-        <p>
-            <b>Location:</b>
-            {{ location }}
-        </p>
+            <h2>🏥 Hospital / Skin Care Information</h2>
 
-        <ul>
-            {% for hospital in hospitals %}
-                <li>{{ hospital }}</li>
-            {% endfor %}
-        </ul>
+            <div class="report-details">
 
-        <hr>
+                <p>
+                    <b>Location:</b>
+                    {{ location }}
+                </p>
+
+                <ul>
+                    {% for hospital in hospitals %}
+                        <li>{{ hospital }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
 
         {% if not patient_done and not ai_done and not doctor_done and not hospital_done %}
 
-        <h2>No Report Data Available</h2>
+        <div class="report-section">
 
-        <p>
-            Please complete at least one module before viewing the report.
-        </p>
+            <h2>No Report Data Available</h2>
+
+            <p>
+                Please complete at least one module before viewing
+                the report.
+            </p>
+
+        </div>
 
         {% endif %}
 
 
-        <p>
-            ⚠️ This report is generated for academic/project
-            demonstration purposes and is not a medical diagnosis.
-        </p>
+        <div class="report-warning">
 
-        <p>
-            <a href="/dashboard">Back to Dashboard</a>
+            <strong>⚠️ Important</strong>
+
+            <p>
+                This report is generated for academic/project
+                demonstration purposes and is not a medical diagnosis.
+                Please consult a qualified healthcare professional
+                for proper evaluation.
+            </p>
+
+        </div>
+
+
+        <p class="dashboard-back">
+
+            <a href="/dashboard">
+                ← Back to Dashboard
+            </a>
+
         </p>
 
     </div>
+
+</div>
 
 </body>
 </html>

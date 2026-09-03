@@ -4,7 +4,9 @@
 
     <title>Skin Allergy Management System</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>
 
 </head>
 
@@ -14,7 +16,7 @@
     <div class="navbar">
 
         <div class="logo">
-            🩺 Skin Allergy Management System
+            ✿ Skin Allergy Management System
         </div>
 
         <div class="nav-links">
@@ -25,57 +27,176 @@
         </div>
 
     </div>
+    <!-- Left Skin Allergy Visual -->
 
+<div class="allergy-visual left-visual">
+
+    <div class="skin-visual">
+        <div class="skin-patch patch-one"></div>
+        <div class="skin-patch patch-two"></div>
+        <div class="skin-dot dot-one"></div>
+        <div class="skin-dot dot-two"></div>
+        <div class="skin-dot dot-three"></div>
+    </div>
+
+    <div class="allergy-small">✦</div>
+    <div class="allergy-small small-two">✧</div>
+
+</div>
+
+
+<!-- Right Skin Allergy Visual -->
+
+<div class="allergy-visual right-visual">
+
+    <div class="skin-visual">
+        <div class="skin-patch patch-three"></div>
+        <div class="skin-patch patch-four"></div>
+        <div class="skin-dot dot-four"></div>
+        <div class="skin-dot dot-five"></div>
+        <div class="skin-dot dot-six"></div>
+    </div>
+
+    <div class="allergy-small">✦</div>
+    <div class="allergy-small small-two">✧</div>
+
+</div>
 
     <!-- Hero Section -->
     <section class="hero">
 
-        <h1>Skin Allergy Management System</h1>
+        <!-- Decorative Background Elements -->
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
 
-        <p>
-            A simple web-based system to help users manage
-            skin allergy related information and healthcare services.
-        </p>
+        <div class="skin-symbol symbol-one">✦</div>
+        <div class="skin-symbol symbol-two">✧</div>
+        <div class="skin-symbol symbol-three">✦</div>
 
-        <a href="/register" class="btn">Get Started</a>
-        <a href="/login" class="btn">Login</a>
+        <div class="hero-content">
+
+            <div class="hero-icon">✿</div>
+
+            <h1>
+                Skin Allergy<br>
+                Management System
+            </h1>
+
+            <div class="gold-line">
+                <span>◆</span>
+            </div>
+
+            <p>
+                A simple web-based system to help users manage
+                skin allergy related information and healthcare services.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/register" class="btn primary-btn">
+                    ✦ &nbsp; Get Started
+                </a>
+
+                <a href="/login" class="btn secondary-btn">
+                    ♙ &nbsp; Login
+                </a>
+
+            </div>
+
+        </div>
 
     </section>
 
 
-    <!-- Services -->
+    <!-- Services Section -->
     <section class="services">
 
         <h2>Our Services</h2>
 
+        <div class="section-line">
+            <span>◆</span>
+        </div>
+
         <div class="service-container">
 
+            <!-- Patient Details -->
             <div class="card">
-                <h3>👤 Patient Details</h3>
+
+                <div class="card-icon">
+                    ♙
+                </div>
+
+                <h3>Patient Details</h3>
+
                 <p>
                     Manage and maintain patient information easily.
                 </p>
+
             </div>
 
+
+            <!-- AI Skin Analysis -->
             <div class="card">
-                <h3>👨‍⚕️ Doctor Suggestion</h3>
+
+                <div class="card-icon">
+                    ✦
+                </div>
+
+                <h3>AI Skin Analysis</h3>
+
                 <p>
-                    Get suitable specialist suggestions based on information provided.
+                    Analyse symptoms and provide preliminary
+                    skin allergy information.
                 </p>
+
             </div>
 
+
+            <!-- Doctor Suggestion -->
             <div class="card">
-                <h3>🏥 Hospital Location</h3>
+
+                <div class="card-icon">
+                    ♧
+                </div>
+
+                <h3>Doctor Suggestion</h3>
+
+                <p>
+                    Get suitable specialist suggestions for
+                    further consultation.
+                </p>
+
+            </div>
+            <!-- Hospital Location -->
+            <div class="card">
+
+                <div class="card-icon">
+        ♧
+                </div>
+
+                <h3>Hospital Location</h3>
+
                 <p>
                     Find useful information about nearby hospitals.
                 </p>
+
+    
             </div>
 
+
+            <!-- Reports -->
             <div class="card">
-                <h3>📄 Reports</h3>
+
+                <div class="card-icon">
+                    ▤
+                </div>
+
+                <h3>Reports</h3>
+
                 <p>
-                    View and manage previous health-related reports.
+                    View and manage patient analysis reports.
                 </p>
+
             </div>
 
         </div>
@@ -86,7 +207,13 @@
     <!-- Footer -->
     <div class="footer">
 
-        <p>© 2026 Skin Allergy Management System</p>
+        <p>
+            © 2026 Skin Allergy Management System. All rights reserved.
+        </p>
+
+        <p class="footer-tagline">
+            ♡ Your Skin, Our Care
+        </p>
 
     </div>
 

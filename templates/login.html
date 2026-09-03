@@ -5,37 +5,54 @@
     <title>Login - Skin Allergy Management System</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>
 
 </head>
 
 <body>
 
-    <div class="hero">
+    <div class="login-page">
 
-        <h1>Login</h1>
+        <div class="login-card">
 
-        <p>Login to your account</p>
+            <div class="login-icon">✿</div>
 
-        <form method="POST" action="/login">
+            <h1>Welcome Back</h1>
 
-            <p>
-                <label>Email</label><br>
-                <input type="email" name="email" placeholder="Enter your email" required>
+            <p class="login-subtitle">
+                Login to your account
             </p>
 
-            <p>
-                <label>Password</label><br>
-                <input type="password" name="password" placeholder="Enter your password" required>
+            <form method="POST" action="/login">
+
+                <div class="login-group">
+                    <label>Email</label>
+                    <input type="email"
+                           name="email"
+                           placeholder="Enter your email"
+                           required>
+                </div>
+
+                <div class="login-group">
+                    <label>Password</label>
+                    <input type="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="/register">Register</a>
             </p>
 
-            <button type="submit" class="btn">Login</button>
-
-        </form>
-
-        <p>
-            Don't have an account?
-            <a href="/register">Register</a>
-        </p>
+        </div>
 
     </div>
 

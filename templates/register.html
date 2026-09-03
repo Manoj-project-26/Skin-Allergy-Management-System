@@ -5,52 +5,73 @@
     <title>User Registration - Skin Allergy Management System</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>
 
 </head>
 
 <body>
 
-    <div class="hero">
+    <div class="register-page">
 
-        <h1>Create Your Account</h1>
+        <div class="register-card">
 
-        <p>Please enter your details to register.</p>
+            <div class="register-icon">✿</div>
 
-        <form method="POST" action="/register">
+            <h1>Create Your Account</h1>
 
-            <p>
-                <label>Full Name</label><br>
-                <input type="text" name="name" placeholder="Enter your full name">
+            <p class="register-subtitle">
+                Please enter your details to register.
             </p>
 
-            <p>
-                <label>Email</label><br>
-                <input type="email" name="email" placeholder="Enter your email">
+            <form method="POST" action="/register">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                           name="name"
+                           placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                           name="email"
+                           placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text"
+                           name="phone"
+                           placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password"
+                           name="password"
+                           placeholder="Enter your password">
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password"
+                           name="confirm_password"
+                           placeholder="Confirm your password">
+                </div>
+
+                <button type="submit" class="register-btn">
+                    Register
+                </button>
+
+            </form>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="/login">Login</a>
             </p>
 
-            <p>
-                <label>Phone Number</label><br>
-                <input type="text" name="phone" placeholder="Enter your phone number">
-            </p>
-
-            <p>
-                <label>Password</label><br>
-                <input type="password" name="password" placeholder="Enter your password">
-            </p>
-
-            <p>
-                <label>Confirm Password</label><br>
-                <input type="password" name="confirm_password" placeholder="Confirm your password">
-            </p>
-
-            <button type="submit" class="btn">Register</button>
-
-        </form>
-
-        <p>
-            Already have an account?
-            <a href="/login">Login</a>
-        </p>
+        </div>
 
     </div>
 
