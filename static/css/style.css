@@ -2410,3 +2410,39 @@ body {
         height: 220px;
     }
 }
+/* Patient Details - Symptom Checkbox Fix */
+
+.patient-card .symptom-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 18px;
+    margin-top: 10px;
+}
+
+.patient-card .symptom-list label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+    padding: 12px 14px;
+
+    background: rgba(216, 160, 166, 0.08);
+    border: 1px solid rgba(216, 160, 166, 0.35);
+    border-radius: 10px;
+
+    color: #fff5f0;
+    font-weight: normal;
+
+    cursor: pointer;
+}
+
+.patient-card .symptom-list input[type="checkbox"] {
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+
+    accent-color: #d4af37;
+}

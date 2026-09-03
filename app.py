@@ -127,7 +127,8 @@ def patient_details():
         gender = request.form["gender"]
         phone = request.form["phone"]
         address = request.form["address"]
-        symptoms = request.form["symptoms"]
+        symptoms_list = request.form.getlist("symptoms")
+        symptoms = ", ".join(symptoms_list)
         allergy_history = request.form["allergy_history"]
 
         connection = sqlite3.connect("database.db")
@@ -388,7 +389,8 @@ def doctor_suggestion():
 
     if request.method == "POST":
 
-        symptoms = request.form["symptoms"].lower()
+        symptoms_list = request.form.getlist("symptoms")
+        symptoms = ", ".join(symptoms_list).lower()
         duration = request.form["duration"]
         additional_info = request.form.get("additional_info", "")
 
