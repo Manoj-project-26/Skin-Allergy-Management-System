@@ -25,179 +25,286 @@
 
             <form method="POST" action="/patient-details">
 
+                <!-- Patient Name -->
                 <div class="patient-group">
                     <label>Patient Name</label>
+
                     <input type="text"
                            name="patient_name"
+                           value="{{ patient[0] if patient else '' }}"
                            placeholder="Enter patient name"
                            required>
                 </div>
 
+
+                <!-- Age and Gender -->
                 <div class="patient-row">
 
                     <div class="patient-group">
                         <label>Age</label>
+
                         <input type="number"
                                name="age"
+                               value="{{ patient[1] if patient else '' }}"
                                placeholder="Enter age"
                                required>
                     </div>
+
 
                     <div class="patient-group">
                         <label>Gender</label>
 
                         <select name="gender" required>
+
                             <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+
+                            <option value="Male"
+                                {% if patient and patient[2] == "Male" %}selected{% endif %}>
+                                Male
+                            </option>
+
+                            <option value="Female"
+                                {% if patient and patient[2] == "Female" %}selected{% endif %}>
+                                Female
+                            </option>
+
+                            <option value="Other"
+                                {% if patient and patient[2] == "Other" %}selected{% endif %}>
+                                Other
+                            </option>
+
                         </select>
+                    </div>
+
+                </div>
+
+
+                <!-- Phone Number -->
+                <div class="patient-group">
+
+                    <label>Phone Number</label>
+
+                    <input type="text"
+                           name="phone"
+                           value="{{ patient[3] if patient else '' }}"
+                           placeholder="Enter phone number"
+                           required>
+
+                </div>
+
+
+                <!-- Address -->
+                <div class="patient-group">
+
+                    <label>Address</label>
+
+                    <textarea name="address"
+                              placeholder="Enter address"
+                              rows="3"
+                              required>{{ patient[4] if patient else '' }}</textarea>
+
+                </div>
+
+
+                <!-- Allergy Symptoms -->
+                <div class="patient-group">
+
+                    <label>Allergy Symptoms</label>
+
+                    <div class="symptom-list">
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="itching"
+                                   {% if patient and 'itching' in patient[5].lower() %}checked{% endif %}>
+                            Itching
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="redness"
+                                   {% if patient and 'redness' in patient[5].lower() %}checked{% endif %}>
+                            Redness
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="rash"
+                                   {% if patient and 'rash' in patient[5].lower() %}checked{% endif %}>
+                            Rash
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="dryness"
+                                   {% if patient and 'dryness' in patient[5].lower() %}checked{% endif %}>
+                            Dryness
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="swelling"
+                                   {% if patient and 'swelling' in patient[5].lower() %}checked{% endif %}>
+                            Swelling
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="burning"
+                                   {% if patient and 'burning' in patient[5].lower() %}checked{% endif %}>
+                            Burning
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="irritation"
+                                   {% if patient and 'irritation' in patient[5].lower() %}checked{% endif %}>
+                            Irritation
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="bumps"
+                                   {% if patient and 'bumps' in patient[5].lower() %}checked{% endif %}>
+                            Bumps
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="blisters"
+                                   {% if patient and 'blisters' in patient[5].lower() %}checked{% endif %}>
+                            Blisters
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="peeling"
+                                   {% if patient and 'peeling' in patient[5].lower() %}checked{% endif %}>
+                            Peeling
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="cracked"
+                                   {% if patient and 'cracked' in patient[5].lower() %}checked{% endif %}>
+                            Cracked
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="pain"
+                                   {% if patient and 'pain' in patient[5].lower() %}checked{% endif %}>
+                            Pain
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="scaling"
+                                   {% if patient and 'scaling' in patient[5].lower() %}checked{% endif %}>
+                            Scaling
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="hives"
+                                   {% if patient and 'hives' in patient[5].lower() %}checked{% endif %}>
+                            Hives
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="oozing"
+                                   {% if patient and 'oozing' in patient[5].lower() %}checked{% endif %}>
+                            Oozing
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="flaking"
+                                   {% if patient and 'flaking' in patient[5].lower() %}checked{% endif %}>
+                            Flaking
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="warmth"
+                                   {% if patient and 'warmth' in patient[5].lower() %}checked{% endif %}>
+                            Warmth
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="tenderness"
+                                   {% if patient and 'tenderness' in patient[5].lower() %}checked{% endif %}>
+                            Tenderness
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="tightness"
+                                   {% if patient and 'tightness' in patient[5].lower() %}checked{% endif %}>
+                            Tightness
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="symptoms"
+                                   value="discoloration"
+                                   {% if patient and 'discoloration' in patient[5].lower() %}checked{% endif %}>
+                            Discoloration
+                        </label>
 
                     </div>
 
                 </div>
 
-                <div class="patient-group">
-                    <label>Phone Number</label>
-                    <input type="text"
-                           name="phone"
-                           placeholder="Enter phone number"
-                           required>
-                </div>
 
-                <div class="patient-group">
-                    <label>Address</label>
-                    <textarea name="address"
-                              placeholder="Enter address"
-                              rows="3"
-                              required></textarea>
-                </div>
-
+                <!-- Previous Allergy History -->
                 <div class="patient-group">
 
-    <label>Allergy Symptoms</label>
-
-    <div class="symptom-list">
-
-        <label>
-            <input type="checkbox" name="symptoms" value="itching">
-            Itching
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="redness">
-            Redness
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="rash">
-            Rash
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="dryness">
-            Dryness
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="swelling">
-            Swelling
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="burning">
-            Burning
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="irritation">
-            Irritation
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="bumps">
-            Bumps
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="blisters">
-            Blisters
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="peeling">
-            Peeling
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="cracked">
-            Cracked
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="pain">
-            Pain
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="scaling">
-            Scaling
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="hives">
-            Hives
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="oozing">
-            Oozing
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="flaking">
-            Flaking
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="warmth">
-            Warmth
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="tenderness">
-            Tenderness
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="tightness">
-            Tightness
-        </label>
-
-        <label>
-            <input type="checkbox" name="symptoms" value="discoloration">
-            Discoloration
-        </label>
-
-    </div>
-
-</div>
-
-                <div class="patient-group">
                     <label>Previous Allergy History</label>
+
                     <textarea name="allergy_history"
                               placeholder="Enter previous allergy details, if any"
-                              rows="3"></textarea>
+                              rows="3">{{ patient[6] if patient else '' }}</textarea>
+
                 </div>
 
+
+                <!-- Save Button -->
                 <button type="submit" class="patient-btn">
                     Save Patient Details
                 </button>
 
             </form>
 
+
+            <!-- Back to Dashboard -->
             <p class="dashboard-back">
-                <a href="/dashboard">← Back to Dashboard</a>
+
+                <a href="/dashboard">
+                    ← Back to Dashboard
+                </a>
+
             </p>
 
         </div>
