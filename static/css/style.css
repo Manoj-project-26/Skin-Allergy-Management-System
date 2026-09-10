@@ -13,6 +13,12 @@ body {
     background: #160d1d;
     color: #fff5f0;
 }
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+}
 
 /* =========================================
    NAVIGATION BAR
@@ -74,6 +80,7 @@ body {
 ========================================= */
 
 .hero {
+    
     min-height: 560px;
     padding: 85px 20px 90px;
 
@@ -83,27 +90,15 @@ body {
     text-align: center;
 
     background:
-        radial-gradient(
-            circle at 20% 30%,
-            rgba(212, 175, 55, 0.16),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 80% 25%,
-            rgba(216, 160, 166, 0.15),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(130, 55, 105, 0.22),
-            transparent 40%
-        ),
         linear-gradient(
-            135deg,
-            #160d1d,
-            #2a1533 50%,
-            #160d1d
-        );
+            rgba(22, 13, 29, 0.82),
+            rgba(22, 13, 29, 0.82)
+        ),
+        url("../images/rash.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Soft glowing circles */
@@ -2445,4 +2440,21 @@ body {
     flex-shrink: 0;
 
     accent-color: #d4af37;
+}
+/* Center Back to Dashboard on all result pages */
+
+.dashboard-back {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.dashboard-back a {
+    display: inline-block;
+    color: #d4af37;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dashboard-back a:hover {
+    color: #d8a0a6;
 }
